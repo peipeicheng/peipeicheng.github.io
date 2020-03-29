@@ -14,6 +14,7 @@
 
 
 <link rel="stylesheet" href="/lib/font-awesome/css/font-awesome.min.css">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.css">
 
 
 <script id="hexo-configurations">
@@ -28,7 +29,7 @@
     copycode: {"enable":false,"show_result":false,"style":null},
     back2top: {"enable":true,"sidebar":false,"scrollpercent":false},
     bookmark: {"enable":false,"color":"#222","save":"auto"},
-    fancybox: false,
+    fancybox: true,
     mediumzoom: false,
     lazyload: false,
     pangu: false,
@@ -47,9 +48,9 @@
 </script>
 
   <meta property="og:type" content="website">
-<meta property="og:title" content="Hexo">
+<meta property="og:title" content="CPP&#39;s Blog">
 <meta property="og:url" content="http://yoursite.com/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="CPP&#39;s Blog">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:author" content="Peipei">
 <meta name="twitter:card" content="summary">
@@ -66,7 +67,7 @@
   };
 </script>
 
-  <title>Hexo</title>
+  <title>CPP's Blog</title>
   
 
 
@@ -110,7 +111,7 @@
     <div>
       <a href="/" class="brand" rel="start">
         <span class="logo-line-before"><i></i></span>
-        <span class="site-title">Hexo</span>
+        <span class="site-title">CPP's Blog</span>
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
@@ -175,7 +176,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/STM32H7-SPI/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/Shortcut/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="http://img2.touxiang.cn/file/20180711/365148eeba3ffef29370d7bf46d81cd3.jpg">
@@ -184,12 +185,12 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="CPP's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
           
-            <a href="/2020/03/27/STM32H7-SPI/" class="post-title-link" itemprop="url">STM32H7 SPI</a>
+            <a href="/2020/03/27/Shortcut/" class="post-title-link" itemprop="url">Shortcut</a>
         </h1>
 
         <div class="post-meta">
@@ -199,7 +200,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-03-27 12:42:39" itemprop="dateCreated datePublished" datetime="2020-03-27T12:42:39+08:00">2020-03-27</time>
+              <time title="创建时间：2020-03-27 21:13:50" itemprop="dateCreated datePublished" datetime="2020-03-27T21:13:50+08:00">2020-03-27</time>
             </span>
 
           
@@ -232,6 +233,230 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/STM32H7-SPI/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img2.touxiang.cn/file/20180711/365148eeba3ffef29370d7bf46d81cd3.jpg">
+      <meta itemprop="name" content="Peipei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPP's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/03/27/STM32H7-SPI/" class="post-title-link" itemprop="url">STM32H7 SPI</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-03-27 12:42:39" itemprop="dateCreated datePublished" datetime="2020-03-27T12:42:39+08:00">2020-03-27</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-30 00:24:23" itemprop="dateModified" datetime="2020-03-30T00:24:23+08:00">2020-03-30</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="SPI通信"><a href="#SPI通信" class="headerlink" title="SPI通信"></a>SPI通信</h2><h3 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h3><p>一、常见的串行通信接口</p>
+<table>
+<thead>
+<tr>
+<th>通信标准</th>
+<th>引脚说明</th>
+<th>通信方式</th>
+<th>通信方向</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>UART(通用异步收发器)</td>
+<td>TXD<br>RXD<br>GND</td>
+<td>异步通信</td>
+<td>全双工</td>
+</tr>
+<tr>
+<td>1-wire(单总线)</td>
+<td>DQ：发送/接收端</td>
+<td>异步通信</td>
+<td>半双工</td>
+</tr>
+<tr>
+<td>SPI</td>
+<td>SCK：同步时钟<br>MOSI:主机发送，从机接收<br>MISO:主机接收，从机发送</td>
+<td>同步通信</td>
+<td>全双工</td>
+</tr>
+<tr>
+<td>I2C</td>
+<td>SCK：同步时钟<br>SDA：数据输入/输出</td>
+<td>同步通信</td>
+<td>半双工</td>
+</tr>
+</tbody></table>
+<p><strong>二、数据交换</strong></p>
+<p>​    <strong>SPI 协议规定一个 SPI 设备不能在数据通信过程中仅仅只充当一个 “发送者(Transmitter)” 或者 “接收者(Receiver)”</strong>. 在每个 Clock 周期内, <strong>SPI 设备都会发送并接收一个 bit 大小的数据(</strong>不管主设备好还是从设备<strong>)</strong>, 相当于该设备有一个 bit 大小的数据被交换了. </p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/SPI1.png" alt="SPI1"></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/SPI2.png" alt="SPI2"></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/SPI3.png" alt="SPI3"></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/SPI4.png" alt="SPI4"></p>
+<p><strong>通信过程</strong></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/untitled.png" alt="SPIMaster"></p>
+<p>关于上图的组件解释</p>
+<ul>
+<li>SSPBUF,Synchronous Serial Port Buffer, 泛指 SPI 设备里面的内部缓冲区, 一般在物理上是以 FIFO 的形式, 保存传输过程中的临时数据;</li>
+<li>SSPSR, Synchronous Serial Port Register, 泛指 SPI 设备里面的移位寄存器(Shift Regitser), 它的作用是根据设置好的数据位宽(bit-width) 把数据移入或者移出 SSPBUF;</li>
+<li>Controller, 泛指 SPI 设备里面的控制寄存器, 可以通过配置它们来设置 SPI 总线的传输模式。</li>
+</ul>
+<p><strong>例如SPI全双工方式同时发送和接收8（16）位数据过程如下</strong>：</p>
+<p>a. 主机启动发送过程，送出脉冲信号——&gt;主移位寄存器的数据通过MOSI（SDO）移入到移位寄存器，同时从移位寄存器中的数据通过MISO（SDI）移入到主移位寄存器中。</p>
+<p>b. 8(16)位时钟脉冲过后，时钟停顿，主移位寄存器中的8(16)位数据全部移位到移位寄存器中，随即又被自动装入从接收缓存器。从机接收缓冲器满标志位(BF)和中断标志位(SSPIF)置“1”。同理，从移位寄存器中的8位数据全部移入到主寄存器中，随即又被自动装入到主接收缓冲器中．主接收缓冲器满标志位(BF)和中断标志位(SSPIF)置“1”</p>
+<p>c. 主CPU检测到主接收缓冲器的满标志位或者中断标志位置1后，就可以读取接收缓冲器中的数据。同样，从CPU检测到从接收缓冲器满标志位或中断标志位置1后，就可以读取接收缓冲器中的数据，这样就完成了一次相互通信过程。</p>
+<p><strong>时序图</strong></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/20160925212023590.png" alt="SPI"></p>
+<p>SPI通过控制主从设备的时钟极性Polarity和时钟相位Phase来实现同步过程，</p>
+<ol>
+<li>CKPOL (Clock Polarity) = CPOL = POL = Polarity = （时钟）极性</li>
+<li>CKPHA (Clock Phase) = CPHA = PHA = Phase = （时钟）相位</li>
+</ol>
+<p>最常见的写法CPOL和CPHA，<strong>CPOL和CPHA通过置0或置1，可组合4中SPI模式，</strong></p>
+<p>若CPOL = 0，串行同步时钟的空闲状态idle为低电平；（SCK高电平有效）</p>
+<p>若CPOL = 1，串行同步时钟的空闲状态为idle高电平；（SCK低电平有效）</p>
+<p>若CPHA = 0，在串行同步时钟的第一个跳变沿（上升或下降）数据将被采样；（Leading edge=前一个边沿=第一个边沿）</p>
+<p>若CPHA = 1，在串行同步时钟的第二个跳变沿（上升或下降）数据将被采样；（Trailing edge=后一个边沿=第二个边沿）</p>
+<p>注：<strong>设置SPI的模式，是从设备的模式，决定了主设备的模式</strong>。所以要先去搞懂从设备的SPI是何种模式，然后再将主设备的SPI的模式，设置和从设备相同的模式，即可正常通讯。</p>
+<h3 id="STM32驱动"><a href="#STM32驱动" class="headerlink" title="STM32驱动"></a>STM32驱动</h3><p>STM32的内部集成有SPI，对STM32H7的SPI2初始化代码如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">MX_SPI2_Init</span><span class="params">(<span class="keyword">void</span>)</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">  <span class="comment">/* SPI2 parameter configuration*/</span></span><br><span class="line">  hspi2.Instance = SPI2;</span><br><span class="line">  hspi2.Init.Mode = SPI_MODE_MASTER;</span><br><span class="line">  hspi2.Init.Direction = SPI_DIRECTION_2LINES;</span><br><span class="line">  hspi2.Init.DataSize = SPI_DATASIZE_8BIT;</span><br><span class="line">  hspi2.Init.CLKPolarity = SPI_POLARITY_LOW;</span><br><span class="line">  hspi2.Init.CLKPhase = SPI_PHASE_1EDGE;</span><br><span class="line">  hspi2.Init.NSS = SPI_NSS_SOFT;</span><br><span class="line">  hspi2.Init.BaudRatePrescaler = SPI_BAUDRATEPRESCALER_2;</span><br><span class="line">  hspi2.Init.FirstBit = SPI_FIRSTBIT_MSB;</span><br><span class="line">  hspi2.Init.TIMode = SPI_TIMODE_DISABLE;</span><br><span class="line">  hspi2.Init.NSSPMode = SPI_NSS_PULSE_ENABLE;</span><br><span class="line">  hspi2.Init.NSSPolarity = SPI_NSS_POLARITY_LOW;</span><br><span class="line">  hspi2.Init.FifoThreshold = SPI_FIFO_THRESHOLD_01DATA;</span><br><span class="line">  hspi2.Init.TxCRCInitializationPattern = SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN;</span><br><span class="line">  hspi2.Init.RxCRCInitializationPattern = SPI_CRC_INITIALIZATION_ALL_ZERO_PATTERN;</span><br><span class="line">  hspi2.Init.MasterSSIdleness = SPI_MASTER_SS_IDLENESS_00CYCLE;</span><br><span class="line">  hspi2.Init.MasterInterDataIdleness = SPI_MASTER_INTERDATA_IDLENESS_00CYCLE;</span><br><span class="line">  hspi2.Init.MasterReceiverAutoSusp = SPI_MASTER_RX_AUTOSUSP_DISABLE;</span><br><span class="line">  hspi2.Init.MasterKeepIOState = SPI_MASTER_KEEP_IO_STATE_DISABLE;</span><br><span class="line">  hspi2.Init.IOSwap = SPI_IO_SWAP_DISABLE;</span><br><span class="line">  <span class="keyword">if</span> (HAL_SPI_Init(&amp;hspi2) != HAL_OK)</span><br><span class="line">  &#123;</span><br><span class="line">    Error_Handler();</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<p>STM32 SPI提供了3种接口方式，分别是轮询、中断及DMA，对于单个从设备不需要考虑其他任务的时候可采用轮询方式。</p>
+<p>STM32H7系列SPI三种方式对应到HAL库中的一些发送或接收的函数如下：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_Transmit</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pData, <span class="keyword">uint16_t</span> Size, <span class="keyword">uint32_t</span> Timeout)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_TransmitReceive</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pTxData, <span class="keyword">uint8_t</span> *pRxData, <span class="keyword">uint16_t</span> Size, <span class="keyword">uint32_t</span> Timeout)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_TransmitReceive_DMA</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pTxData, <span class="keyword">uint8_t</span> *pRxData,<span class="keyword">uint16_t</span> Size)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_Transmit_IT</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pData, <span class="keyword">uint16_t</span> Size)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_Transmit_DMA</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pData, <span class="keyword">uint16_t</span> Size)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_TransmitReceive_IT</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pTxData, <span class="keyword">uint8_t</span> *pRxData, <span class="keyword">uint16_t</span> Size)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_Receive</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pData, <span class="keyword">uint16_t</span> Size, <span class="keyword">uint32_t</span> Timeout)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_Receive_DMA</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pData, <span class="keyword">uint16_t</span> Size)</span></span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">HAL_StatusTypeDef <span class="title">HAL_SPI_Receive_IT</span><span class="params">(SPI_HandleTypeDef *hspi, <span class="keyword">uint8_t</span> *pData, <span class="keyword">uint16_t</span> Size)</span></span></span><br></pre></td></tr></table></figure>
+
+<h2 id="CRC校验"><a href="#CRC校验" class="headerlink" title="CRC校验"></a>CRC校验</h2><h3 id="CRC原理概述"><a href="#CRC原理概述" class="headerlink" title="CRC原理概述"></a>CRC原理概述</h3><p><strong>基本概念</strong></p>
+<p>1、在对信息的处理过程中，我们可以将要被处理的<strong>数据块M</strong>看成一个n阶的二进制多项式，其形式如下<br>$$<br>M=a_(n-1) X^(n-1)+a_(n-2) X^(n-2)+…+a_1 X^1+a_0<br>$$<br>CRC校验就是基于这种多项式进行的运算</p>
+<p>2、当进行CRC检验时，发送方和接受方事先约定一个除数，即生成多项式G（x），常用的CRC码的生成多项式为：</p>
+<p>CRC8=X8+X5+X4+1                           （10011001）</p>
+<p>CRC-CCITT=X16+X12+X5+1               （1000100000010001）</p>
+<p>CRC16=X16+X15+X5+1</p>
+<p>CRC12=X12+X11+X3+X2+1</p>
+<p>CRC32=X32+X26+X23+X22+X16+X12+X11+X10+X8+X7+X5+X4+X2+X1+1</p>
+<p>注：常用的生成多项式最高位均为1，且均包含1</p>
+<p><strong>CRC校验码的计算</strong></p>
+<p>​    <strong>CRC传输</strong>实际上就是在长度为 <strong>k</strong> 的数据后面添加<strong>帧检测序列</strong>FCS(Frame Check Sequence) 用的 <strong>r</strong> 位冗余码（Redundant code ，CRC里面的R），使原数据构成 <strong>n = k + r</strong> 位并发送出去, 此方式又叫（n, k）码。</p>
+<p>计算示例如图:</p>
+<p>设需要发送的信息为M = 1010001101，产生多项式对应的代码为P = 110101，<strong>R</strong>＝5。在M后加<strong>5</strong>个0，然后对P做模2除法运算，得余数r(x)对应的代码：01110。故实际需要发送的数据是101000110101110。</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/crc.png" alt></p>
+<p>具体推算：</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/ca.PNG" alt></p>
+<p><strong>生成多项式的选择</strong></p>
+<p>不同的CRC生成多项式，其检错能力是不同的。要使用R位校验码，生成多项式的次幂应为R。同时生成多项式应该包含项”1”，否则校验码的LSB(Least Significant Bit)将始终为0。</p>
+<h3 id="STM32H7系列硬件CRC"><a href="#STM32H7系列硬件CRC" class="headerlink" title="STM32H7系列硬件CRC"></a>STM32H7系列硬件CRC</h3><p>STM32提供了一个硬件CRC引擎，</p>
+<p>​    TX 将通过 CRC 引擎运行它要发送的数据，计算具有一个对该数据唯一的 CRC code。TX 将其数据与 CRC code一起发送到 RX。</p>
+<p>​    现在 RX 接收数据和 CRC code。RX 将通过相同的 CRC 引擎运行数据。RX 现在将计算自己的 CRC 代码。RX 现在会将其收到的 CRC 与其计算的 CRC 进行比较，如果它们匹配，则数据无损坏。</p>
+<p>关于CRC流程图及算法</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/crc.jpg" alt></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/crc2.jpg" alt></p>
+<p>The idea behind the CRC algorithm is this:</p>
+<ol>
+<li><p>Start with an initial CRC value, in the image above it is 0xFF</p>
+</li>
+<li><p>Then XOR it with your data</p>
+</li>
+<li><p>If the result of step 2 has a most significant bit of 0 then you simply left shift that number by 1</p>
+</li>
+<li><p>If the result from step 2 has a 1 in the MSB then you also left shift by 1 but also XOR it with a chosen polynomial</p>
+</li>
+<li><p>While doing these steps you must also keep track of your “bind index” which is nothing more than a counter to keep track of how many times you have shifted. This counter must be equal in magnitude to the number of bits in your data. The example above goes from 0 to 7, in other words 8 iterations for an 8 bit number/data. The Point is to shift through every bit</p>
+</li>
+<li><p>The polynomial you chose cannot change during the process. As you can see above the poly is 0xCB and any time we XOR with a poly its always 0xCB.</p>
+<p>CubeIDE中部分CRC的参数定义及使用</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">typedef</span> <span class="class"><span class="keyword">struct</span></span></span><br><span class="line"><span class="class">&#123;</span></span><br><span class="line">  __IO <span class="keyword">uint32_t</span> DR;          <span class="comment">/*!&lt; CRC Data register,                           Address offset: 0x00 */</span></span><br><span class="line">  __IO <span class="keyword">uint32_t</span> IDR;         <span class="comment">/*!&lt; CRC Independent data register,               Address offset: 0x04 */</span></span><br><span class="line">  __IO <span class="keyword">uint32_t</span> CR;          <span class="comment">/*!&lt; CRC Control register,                        Address offset: 0x08 */</span></span><br><span class="line">  <span class="keyword">uint32_t</span>      RESERVED2;   <span class="comment">/*!&lt; Reserved,                                                    0x0C */</span></span><br><span class="line">  __IO <span class="keyword">uint32_t</span> INIT;        <span class="comment">/*!&lt; Initial CRC value register,                  Address offset: 0x10 */</span></span><br><span class="line">  __IO <span class="keyword">uint32_t</span> POL;         <span class="comment">/*!&lt; CRC polynomial register,                     Address offset: 0x14 */</span></span><br><span class="line">&#125; CRC_TypeDef;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ol>
+<ol>
+<li><p><strong>CRC_DR</strong> : The CRC data register. When writing to the data register you are giving the CRC engine the input data on which it will calculate the CRC. When you read from the data register you will get the result from that calculation</p>
+</li>
+<li><p><strong>CRC_IDR</strong> : The CRC idr stores data it really has absolutely no purpose in the CRC calculation, the manual says you can perhaps use it to store a byte of data, but again it has nothing to do with CRC…crazy. </p>
+</li>
+<li><p><strong>CRC_CR</strong> : The CRC control register lets us configure the CRC to reverse the input data or the output data. Allows you to select the polynomial size. And it allows you to reset the entire calculation</p>
+</li>
+<li><p><strong>CRC_INIT</strong> : The CRC init register allows you to set the initial CRC value, by default it is set to 0xFFFF FFFF</p>
+<h3 id="SPI-CRC"><a href="#SPI-CRC" class="headerlink" title="SPI_CRC"></a>SPI_CRC</h3><p>STM32H745具有两个独立的33位和两个独立的17位 的CRC Calculator，</p>
+<p>SPI模块内部封装了CRC</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/SPIBlock.PNG" alt></p>
+<p>SPI提供了从5位到33位之间的的任意长度的多项式，5-17位可对应最大长度为16位的数据，5-33位对应数据长度最大为32位。</p>
+<p>（It has to be set greater than data frame length defined at DSIZE field.）</p>
+</li>
+</ol>
+<p>   <strong>The<br>   CRCSIZE</strong> field in the SPI_CFG1 then defines how many the most significant bits from CRC<br>   calculation registers are transacted and compared as CRC frame. It is defined<br>   independently from the data frame length, but <strong>it must be either equal or an integer multiple</strong><br>   <strong>of the data frame size</strong>.</p>
+<p>   在MX中根据需要选择多项式，使能CRC，并配置CRC长度以及Tx CRC和Rx CRC的初始值，其在</p>
+<p>   static void MX_SPI2_Init(void)中初始化如下：</p>
+   <figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">hspi2.Init.CRCCalculation = SPI_CRCCALCULATION_ENABLE;</span><br><span class="line">hspi2.Init.CRCPolynomial = <span class="number">0x107</span>;</span><br><span class="line">hspi2.Init.CRCLength = SPI_CRC_LENGTH_8BIT;</span><br><span class="line"></span><br><span class="line">hspi2.Init.TxCRCInitializationPattern = SPI_CRC_INITIALIZATION_ALL_ONE_PATTERN;</span><br><span class="line">hspi2.Init.RxCRCInitializationPattern = SPI_CRC_INITIALIZATION_ALL_ONE_PATTERN;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>   相关文档原文：Once the CRC frame is completed, an automatic check is performed comparing the<br>   received CRC value and the value calculated in the SPIx_RXCRC register. Software has to<br>   check the CRCERR flag in the SPI_SR register to determine if the data transfers were<br>   corrupted or not. Software clears the CRCERR flag by writing 1 to the CRCERRC.<br>   The user takes no care about any flushing redundant CRC information, it is done<br>   automatically。</p>
+<p>   也就是接收器会自动对CRC进行比较检查，</p>
+<p>   需要做的是检查SPI_SR寄存器中的CRCERR标志，以确定数据传输是否损坏。通过向CRCERRC写入1来清除CRCERR标志。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/01/16/hello-world/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -241,7 +466,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="CPP's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -318,7 +543,7 @@
     </span>
 
     <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="Hexo">
+      <meta itemprop="name" content="CPP's Blog">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
@@ -340,8 +565,19 @@
                   <i class="fa fa-calendar-check-o"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-03-27 10:44:26" itemprop="dateModified" datetime="2020-03-27T10:44:26+08:00">2020-03-27</time>
+                <time title="修改时间：2020-03-27 19:58:53" itemprop="dateModified" datetime="2020-03-27T19:58:53+08:00">2020-03-27</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index">
+                    <span itemprop="name">工具搭建记录</span>
+                  </a>
+                </span>
+            </span>
 
           
 
@@ -496,12 +732,35 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">3</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
   </nav>
 </div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/peipeicheng" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;peipeicheng" rel="noopener" target="_blank"><i class="fa fa-fw fa-github"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/chengpeipei828@gmail.com" title="E-Mail → chengpeipei828@gmail.com"><i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="/atom.xml" title="RSS → &#x2F;atom.xml"><i class="fa fa-fw fa-rss"></i>RSS</a>
+      </span>
+  </div>
 
 
 
@@ -549,6 +808,8 @@
 
   
   <script src="/lib/anime.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/jquery@3/dist/jquery.min.js"></script>
+  <script src="//cdn.jsdelivr.net/gh/fancyapps/fancybox@3/dist/jquery.fancybox.min.js"></script>
   <script src="/lib/velocity/velocity.min.js"></script>
   <script src="/lib/velocity/velocity.ui.min.js"></script>
 
