@@ -176,6 +176,91 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/04/09/2020-4-9-review-spi-code/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img2.touxiang.cn/file/20180711/365148eeba3ffef29370d7bf46d81cd3.jpg">
+      <meta itemprop="name" content="Peipei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPP's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/04/09/2020-4-9-review-spi-code/" class="post-title-link" itemprop="url">2020/4/9 review spi code</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-04-09 17:02:51" itemprop="dateCreated datePublished" datetime="2020-04-09T17:02:51+08:00">2020-04-09</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-04-10 17:13:14" itemprop="dateModified" datetime="2020-04-10T17:13:14+08:00">2020-04-10</time>
+              </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">assert_param(expr) ((<span class="keyword">void</span>)<span class="number">0U</span>)</span><br></pre></td></tr></table></figure>
+
+<p>“assert是C++开发过程中经常用到的一个宏。在debug模式下，它起到断言的作用；在release模式下，它产生空语句并被编译器优化掉. ”参考文章<a href="http://www.blogtextbook.com/2017/11/30/assert_paramexpr-void0u/" target="_blank" rel="noopener">http://www.blogtextbook.com/2017/11/30/assert_paramexpr-void0u/</a></p>
+<p>在stm32h7xx_hal_spi.h文件中定义：</p>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="meta-keyword">define</span> assert_param(expr) ((void)0U)</span></span><br></pre></td></tr></table></figure>
+
+<p>在stm32h7xx_hal_spi.c文件中使用，例如：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/* Check the parameters */</span></span><br><span class="line">  assert_param(IS_SPI_ALL_INSTANCE(hspi-&gt;Instance));</span><br><span class="line">  assert_param(IS_SPI_MODE(hspi-&gt;Init.Mode));</span><br><span class="line">  assert_param(IS_SPI_DIRECTION(hspi-&gt;Init.Direction));</span><br><span class="line">  assert_param(IS_SPI_DATASIZE(hspi-&gt;Init.DataSize));</span><br><span class="line">  assert_param(IS_SPI_FIFOTHRESHOLD(hspi-&gt;Init.FifoThreshold));</span><br><span class="line">  assert_param(IS_SPI_NSS(hspi-&gt;Init.NSS));</span><br></pre></td></tr></table></figure>
+
+<p>也就是说assert_param 用来辅助调试作用。</p>
+<p>2、函数指针</p>
+<p>review code中，h文件中，相关定义的结构体中出现了</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">void</span> (*RxISR)(struct __SPI_HandleTypeDef *hspi);  <span class="comment">/*!&lt; function pointer on Rx ISR*/</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">void</span> (*TxISR)(struct __SPI_HandleTypeDef *hspi);   <span class="comment">/*!&lt; function pointer on Tx ISR</span></span><br></pre></td></tr></table></figure>
+
+<p>函数指针是指向函数的指针变量。参考<a href="https://www.runoob.com/cprogramming/c-fun-pointer-callback.html" target="_blank" rel="noopener">https://www.runoob.com/cprogramming/c-fun-pointer-callback.html</a></p>
+<p>关于c语言的相关基础知识也可以参考该链接。</p>
+<p>3,<strong>extern “c”用法解析</strong></p>
+<p>extern “C”的主要作用就是为了能够正确实现C++代码调用其他C语言代码。加上extern “C”后，会指示编译器这部分代码按C语言的进行编译，而不是C++的.extern “C”这个声明的真实目的是为了<strong>实现C++与C及其它语言的混合编程</strong>。</p>
+<p><a href="https://www.jianshu.com/p/5d2eeeb93590" target="_blank" rel="noopener">https://www.jianshu.com/p/5d2eeeb93590</a></p>
+<p>4、<strong>#define的使用总结</strong></p>
+<p><a href="https://blog.csdn.net/Jesons_/article/details/51702149" target="_blank" rel="noopener">https://blog.csdn.net/Jesons_/article/details/51702149</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2020/03/27/STM32H7-SPI/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -473,6 +558,139 @@
   
   
 
+        
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2019/12/23/My-First-Blog/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="http://img2.touxiang.cn/file/20180711/365148eeba3ffef29370d7bf46d81cd3.jpg">
+      <meta itemprop="name" content="Peipei">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="CPP's Blog">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          
+            <a href="/2019/12/23/My-First-Blog/" class="post-title-link" itemprop="url">My First Blog</a>
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2019-12-23 16:00:01" itemprop="dateCreated datePublished" datetime="2019-12-23T16:00:01+08:00">2019-12-23</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-03-27 19:58:53" itemprop="dateModified" datetime="2020-03-27T19:58:53+08:00">2020-03-27</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E5%B7%A5%E5%85%B7%E6%90%AD%E5%BB%BA%E8%AE%B0%E5%BD%95/" itemprop="url" rel="index">
+                    <span itemprop="name">工具搭建记录</span>
+                  </a>
+                </span>
+            </span>
+
+          
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>​    这是我基于Win10系统建立的第一篇个人博客,使用<a href="https://git-scm.com/" target="_blank" rel="noopener">git</a>+<a href="https://hexo.io/" target="_blank" rel="noopener">hexo</a>框架部署,选用<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">next</a>主题完成,初步使用,配置还有很多不足之处,现记录下博客建立过程,以供参考.</p>
+<h2 id="Pre"><a href="#Pre" class="headerlink" title="Pre"></a>Pre</h2><p>安装Hexo之前,需要安装</p>
+<p>-<a href="https://nodejs.org/en/" target="_blank" rel="noopener">Node.js</a></p>
+<p>-<a href="https://git-scm.com/" target="_blank" rel="noopener">Git</a></p>
+<p><strong>开始安装hexo:</strong> </p>
+<h2 id="Github创建仓库"><a href="#Github创建仓库" class="headerlink" title="Github创建仓库"></a>Github创建仓库</h2><p>关于git与github账号的绑定,需要生成SSH和添加, 登录github账号,打开Settings→SSH and GPS keys,具体操作可参考<a href="https://help.github.com/en/github/authenticating-to-github/connecting-to-github-with-ssh" target="_blank" rel="noopener">Connecting to GitHub with SSH</a>.</p>
+<p>登录到你的GitHub账号，点击GitHub中的New repository，创建一个新仓库，仓库名应该为：<a href="https://link.zhihu.com/?target=http%3A//YourUserName.github.io">http://YourUserName.github.io</a>，YourUserName务必使用你的GitHub帐号名称代替，这是固定写法，填错了会访问不了。比如仓库名为: <a href="https://link.zhihu.com/?target=http%3A//seekincs.github.io">http://seekincs.github.io</a>。记得初始化README.md。如图所示。</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/v2-2f5bb32659fefad15f49708a748ab62f_r.jpg" alt></p>
+<p>将仓库设置为GitHub Page</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/1.jpg" alt></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/2.jpg" alt></p>
+<h2 id="安装Hexo"><a href="#安装Hexo" class="headerlink" title="安装Hexo"></a><strong>安装Hexo</strong></h2><p>​    需要在自己的电脑上创建一个文件夹，待安装的Hexo框架、生成的网页和你要发布的资料都要放置在这个文件夹中。在此之前可以在本地搭建服务器，虽然GitHub服务器在美国，但出于安全的考虑，将文件夹创建在本地服务器目录下不会有什么坏处。</p>
+<p><strong>开始搭建IIS本地服务器</strong></p>
+<p>开启Internet Information Service（如下图的步骤）</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/3.png" alt></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/4.png" alt></p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/5.jpg" alt></p>
+<p>至此,IIS本地服务器搭建完成.</p>
+<p><strong>接下来创建工程文件夹</strong>,打开C盘，找到inetpub文件夹下的wwwroot文件夹，在这个文件夹下建立个人博客的总目录。不妨命名为Blog.</p>
+<p>创建好后，<strong>进入文件夹中</strong>（这一步很重要，一定要在目标文件夹中打开命令行）打开Git Bash输入命令 </p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ npm install -g hexo-cli</span><br></pre></td></tr></table></figure>
+
+<h2 id="开始创建博客-本地"><a href="#开始创建博客-本地" class="headerlink" title="开始创建博客(本地)"></a>开始创建博客(本地)</h2><p>Hexo安装完成后,初始化博客,输入:</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo init blog</span><br></pre></td></tr></table></figure>
+
+<p>打开blog文件夹,新建一篇博客进行测试使用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">hexo new &quot;My First Blog&quot;</span><br></pre></td></tr></table></figure>
+
+<p>接下来生成指定的文件。输入：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">hexo g</span><br><span class="line">hexo s</span><br></pre></td></tr></table></figure>
+
+
+
+<p>完成后，在浏览器中输入：localhost:4000。你就可以看到你的第一篇博客。但是这篇博文没有内容，不过我们可以打开本地文件来编辑。尽管如此，到目前为止，你的个人博客网站只能在本地服务器运行，无法在其他地方看到。要想在大多数网站中打开博客网站，还需要将博客部署上GitHub。这样相当于将自己的网站发布出去，让更多的人看到。<br>我们现在就来做这件事情。<br>首先回到工程目录，区分两个文件，一个是站点配置文件C:\inetpub\wwwroot\Blog\blog\ _config.yml，另一个是主题配置文件默认位于C:\inetpub\wwwroot\Blog\blog\themes ,下的landscape文件夹下,后面使用其它主题,则在相应主题文件夹中查找对应的主题配置文件.</p>
+<h2 id="Next主题及基本配置"><a href="#Next主题及基本配置" class="headerlink" title="Next主题及基本配置"></a>Next主题及基本配置</h2><p>下载安装主题</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">$ cd &lt;folder&gt;</span><br><span class="line">#方式一:</span><br><span class="line">$ git clone https:&#x2F;&#x2F;github.com&#x2F;iissnan&#x2F;hexo-theme-next themes&#x2F;next #旧版本5以下</span><br><span class="line">#方式二:</span><br><span class="line">$ git clone https:&#x2F;&#x2F;github.com&#x2F;theme-next&#x2F;hexo-theme-next themes&#x2F;next  #新版本</span><br></pre></td></tr></table></figure>
+
+<p>关于主题配置有些繁琐,具体参考<a href="http://theme-next.iissnan.com/" target="_blank" rel="noopener">Next官方教程</a></p>
+<p>关于Hexo的一些基本命令:</p>
+<p>hexo clean  //清除浏览器缓存</p>
+<p>hexo  g    //生成指定文件</p>
+<p>hexo  s   //启动hexo博客(本地)</p>
+<p>hexo  s  –debug //以debug模式运行..</p>
+<p>这几条命令,在主题配置过程中经常反复用到.</p>
+<h2 id="部署至github"><a href="#部署至github" class="headerlink" title="部署至github"></a>部署至github</h2><p>接下来就是将Hexo与GitHub，打开站点配置文件_config.yml，将最后的信息修改如下：<br>deploy:<br>type: git<br>repo: 仓库的完整网址.git<br>branch: master<br>例如 ：</p>
+<p><img src="https://github.com/peipeicheng/Photo-Gallery/raw/master/6.jpg" alt></p>
+<p>接下来<strong>安装Git部署插件</strong>,在命令行中输入如下内容：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-deployer-git --save</span><br></pre></td></tr></table></figure>
+
+<p>安装成功后,在命令行中分别输入三条命令：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">hexo clean (可选)</span><br><span class="line">hexo g  //g:generate</span><br><span class="line">hexo d  //d:deploy</span><br></pre></td></tr></table></figure>
+
+<p>至此,就可以在浏览器中访问你的博客网址了.如我的博客地址<a href="https://peipeicheng.github.io/" target="_blank" rel="noopener">https://peipeicheng.github.io/</a></p>
+<h2 id="关于写博客"><a href="#关于写博客" class="headerlink" title="关于写博客"></a>关于写博客</h2><p>hexo默认的博客形式是post,可在配置文件中修改为其它,生成的markdown文件位于C:\inetpub\wwwroot\Blog\blog\source\ _posts下,编辑博客需要遵循markdown编写规则,比较好的办法是使用markdown编辑器,我安装使用了Typora对markdown进行编辑.</p>
+<p>最后的补充,在本地编辑好最终博客版本,最后部署到github进行发布</p>
+<h2 id="参考文章链接"><a href="#参考文章链接" class="headerlink" title="参考文章链接:"></a>参考文章链接:</h2><p><a href="https://zhuanlan.zhihu.com/p/46096258" target="_blank" rel="noopener">https://zhuanlan.zhihu.com/p/46096258</a></p>
+<p> <a href="https://www.cnblogs.com/Yanger90/p/5801564.html" target="_blank" rel="noopener">https://www.cnblogs.com/Yanger90/p/5801564.html</a></p>
+<p> <a href="https://thief.one/2017/03/03/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/" target="_blank" rel="noopener">https://thief.one/2017/03/03/Hexo%E6%90%AD%E5%BB%BA%E5%8D%9A%E5%AE%A2%E6%95%99%E7%A8%8B/</a></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
   </div>
 
   
@@ -542,14 +760,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">2</span>
+          <span class="site-state-item-count">4</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-count">3</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
